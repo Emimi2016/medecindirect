@@ -1,0 +1,40 @@
+<template name="vaccinationRow">
+    <tr>
+        <td>
+            <input type="text" name="cvxCode{{id}}" id="cvxCode{{id}}" value="{{cvxCode}}" style="width: 200px;"> 
+        </td>
+        <td>
+            <div class="input-group date">
+                    <span style="" class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                <input class="form-control" type="text" name="formDateAdministered{{id}}" id="formDateAdministered{{id}}" value="{{formDateAdministered}}" style="width: 210px;">
+            </div>
+        </td>
+        <td>
+            <div class="input-group date">
+                    <span style="" class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                <input class="form-control" type="text" name="formGivenDate{{id}}" id="formGivenDate{{id}}" value="{{formGivenDate}}" style="width: 210px;">
+            </div>
+        </td>
+        <td>
+            <div class="input-group date">
+                    <span style="" class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                <input class="form-control" type="text" name="formExpiryDate{{id}}" id="formExpiryDate{{id}}" value="{{formExpiryDate}}" style="width: 210px;">
+            </div>
+        </td>
+        <td>
+            <input type="text" name="drugRoute{{id}}" id="drugRoute{{id}}" value="{{drugRoute}}" style="width: 200px;">
+        </td>
+        {{#if Patient}}
+        <td>
+         <button class="btn btn-info edit-vaccination-detail" type="button" data-id={{id}}><i class="fa fa-paste"></i> Edit</button>
+         <button class="btn btn-danger remove-vaccination" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Delete</span></button>
+        </td>
+        {{/if}}
+    </tr>
+</template>

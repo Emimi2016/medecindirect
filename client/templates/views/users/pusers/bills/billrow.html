@@ -1,0 +1,22 @@
+<template name="billRow">
+    <tr>
+            <div class="input-group date">
+                    <span style="" class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                <input class="form-control" type="text" name="Date{{id}}" id="Date{{id}}" value="{{Date}}" style="width: 210px;">
+            </div>
+        <td>
+            <input type="text" name="consultationType{{id}}" id="consultationType{{id}}" value="{{consultationType}}" style="width: 500px;">
+        </td>
+        <td>
+            <input type="text" name="amount{{id}}" id="amount{{id}}" value="{{amount}}" style="width: 200px;">
+        </td>
+        {{#unless isPatient}}
+        <td>
+         <button class="btn btn-info edit-vaccination-detail" type="button" data-id={{id}}><i class="fa fa-paste"></i> Edit</button>
+         <button class="btn btn-danger remove-vaccination" type="button"><i class="fa fa-trash-o"></i> <span class="bold">Delete</span></button>
+        </td>
+        {{/unless}}
+    </tr>
+</template>

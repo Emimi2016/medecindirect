@@ -1,0 +1,267 @@
+<template name="dashboardDoctor">
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-8">
+                            {{#panel title="Patients" panelClass="" footer=""}}
+                        <div class="table-responsive">
+                            <table id="patients" cellpadding="1" cellspacing="1" class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Gender</th>
+                                    <th>City</th>
+                                    <th>Country</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each doctorPatients}}
+                                        <tr>
+                                            <td>{{persodata.fname}}</td>
+                                            <td>{{persodata.lname}}</td>
+                                            <td>{{persodata.gender}}</td>
+                                            <td>{{persodata.city}}</td>
+                                            <td>{{persodata.address}}</td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                   {{/panel}}
+                   
+                </div>
+                <div class="col-md-4">
+                    <div class="right_panel">
+                        {{#panel title="Next Appointment"}}
+                        <a href="{{pathFor route='calendar'}}">
+                            <div class="appointment">
+                            {{#with nextAppointment}}
+                                <div class="pull-left">
+                                    <span class="app-title">{{healthIssues}}</span>
+                                    <span class="venue">{{status}}</span>
+                                    <span class="timing">{{formatedAppointmentTime}}</span>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="date">{{formatedAppointmentDay}}</span>
+                                    <span class="day">{{formatedAppointmentDayName}}</span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <i class="fa fa-table o-35"></i>
+                            {{else}}
+                                <p>You don't have any scheduled appointments</p>
+                            {{/with}}
+                            </div>
+                        </a>
+                        {{/panel}}
+                        {{#panel title="Unread Mail"}}
+                        <a href="{{pathFor route='mailbox'}}">
+                            <div class="message text-color">
+                                {{#with unreadMail}}
+                                <h4 title="Ed Bott">{{from}}</h4>
+                                <div class="description">
+                                    <p>
+                                        <span class="subject">
+                                            {{subject}}
+                                        </span>
+                                        <div class="details">
+                                            {{message}}
+                                        </div>
+                                    </p>
+                                </div>
+                                <span class="pull-left">
+                                    <i class="pe-7s-mail"></i>
+                                </span>
+                                {{else}}
+                                    <p>You don't have any unread messages</p>
+                                {{/with}}
+                                <span class="pull-right msg-count">{{unreadCount}}</span>
+                            </div>
+                        </a>
+                        {{/panel}}
+                    </div>
+                   </div>
+                </div>
+
+
+
+              <!--  <div class="col-lg-4">
+
+                    {{#panel title="" panelClass="stats" footer=""}}
+
+                        <div class="table-responsive">
+
+                        <div class="stats-title pull-left">
+                            <h4>Messages</h4>
+                        </div>
+
+
+                        <div class="pull-right fa-4x">
+                            <i class="fa fa-wheelchair"></i>
+                        </div>
+                            <table id="messages" cellpadding="1" cellspacing="1" class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each messages}}
+                                    <tr>
+                                        <td>{{subject}}</td>
+                                        <td>{{formatedMessageDate}}</td>
+                                        <td><button type="button" class="btn w-xs btn-primary">View</button></td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    {{/panel}}
+                </div>
+
+                <div class="col-lg-4">
+
+                    {{#panel title="" panelClass="stats" footer=""}}
+
+                        <div class="table-responsive">
+
+                        <div class="stats-title pull-left">
+                            <h4>Prescriptions</h4>
+                        </div>
+
+
+                        <div class="pull-right fa-4x">
+                            <i class="fa fa-wheelchair"></i>
+                        </div>
+                            <table id="prescriptions" cellpadding="1" cellspacing="1" class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Drug</th>
+                                    <th>Quantity</th>
+                                    <th>Med. Units</th>
+                                    <th>Refills</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{#with medicalRecord}}
+                                        {{#each prescriptions}}
+                                        <tr>
+                                            <td>{{formatedStartDate}}</td>
+                                            <td>{{drug}}</td>
+                                            <td>{{quantity}}</td>
+                                            <td>{{medUnits}}</td>
+                                            <td>{{refills}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    {{/with}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    {{/panel}}
+                </div>
+
+                <div class="col-lg-4">
+
+                    {{#panel title="" panelClass="stats" footer=""}}
+
+                        <div class="table-responsive">
+
+                        <div class="stats-title pull-left">
+                            <h4>Next appointments</h4>
+                        </div>
+
+
+                        <div class="pull-right fa-4x">
+                            <i class="fa fa-wheelchair"></i>
+                        </div>
+                            <table id="appointments" cellpadding="1" cellspacing="1" class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Issue</th>
+                                    <th>Visit</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each appointments}}
+                                    <tr>
+                                        <td>{{formatedAppointmentDate}}</td>
+                                        <td>{{healthIssues}}</td>
+                                        <td>{{visitType}}</td>
+                                        <td>{{status}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    {{/panel}}
+                </div>
+
+                <div class="col-lg-4">
+
+                    {{#panel title="" panelClass="stats" footer=""}}
+
+                        <div class="table-responsive">
+
+                        <div class="stats-title pull-left">
+                            <h4>Laboratories</h4>
+                        </div>
+
+
+                        <div class="pull-right fa-4x">
+                            <i class="fa fa-wheelchair"></i>
+                        </div>
+                            <table id="laboratories" cellpadding="1" cellspacing="1" class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Doctor</th>
+                                    <th>Lab</th>
+                                    <th>View</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    {{/panel}}
+                </div>
+
+                <div class="col-lg-4">
+
+                    {{#panel title="" panelClass="stats" footer=""}}
+
+                        <div class="table-responsive">
+
+                        <div class="stats-title pull-left">
+                            <h4>Documents</h4>
+                        </div>
+
+
+                        <div class="pull-right fa-4x">
+                            <i class="fa fa-wheelchair"></i>
+                        </div>
+                            <table id="othersdocuments" cellpadding="1" cellspacing="1" class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Visit</th>
+                                    <th>View</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    {{/panel}}
+                </div> -->
+</template>
