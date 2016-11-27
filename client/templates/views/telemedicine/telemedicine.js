@@ -1,7 +1,7 @@
 Template.telemedicine.events({
 
  
-class MySurveyQuestionRadiogroup extends Survey.SurveyQuestionRadiogroup {
+class telemedicineRadiogroup extends Survey.telemedicineRadiogroup {
     render() {
         if (!this.question)
             return null;
