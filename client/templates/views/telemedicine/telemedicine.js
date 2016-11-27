@@ -1,6 +1,59 @@
 Template.telemedicine.events({
 
- var survey = new Survey.Survey({ title: "Tell us, what technologies do you use?", pages: [
+ 
+class MySurveyQuestionRadiogroup extends Survey.SurveyQuestionRadiogroup {
+    render() {
+        if (!this.question)
+            return null;
+        return React.createElement("form", {className: "btn-group", ref: "toggleInput"}, this.getItems());
+    };
+    componentDidMount() {
+        this.refs.toggleInput.setAttribute('data-toggle', 'buttons');
+    };    
+    renderRadio(key, item, isChecked, divStyle, otherItem) {
+        var className = "btn btn-default";
+        if(isChecked) className += " active";
+        return (React.createElement("label", {key: key, style: divStyle, className: className}, 
+            React.createElement("input", {type: "radio", checked: isChecked, value: item.value, onChange: this.handleOnChange}), 
+            React.createElement("span", {}, item.text), 
+            otherItem));
+    };
+}
+
+class MySurveyQuestionCheckboxItem extends Survey.SurveyQuestionCheckboxItem {
+    renderCheckbox(isChecked, divStyle, otherItem) {
+        var className = "btn btn-default";
+        if(isChecked) className += " active";
+        return (React.createElement("label", {className: className, style: divStyle}, 
+            React.createElement("input", {type: "checkbox", checked: isChecked, onChange: this.handleOnChange}), 
+            React.createElement("span", {}, this.item.text), 
+            otherItem));
+    };
+}
+
+class MySurveyQuestionCheckbox extends Survey.SurveyQuestionCheckbox {
+    render() {
+        if (!this.question)
+            return null;
+        return React.createElement("div", {className: "btn-group", ref: "toggleInput"}, this.getItems());
+    }
+    componentDidMount() {
+        this.refs.toggleInput.setAttribute('data-toggle', 'buttons');
+    };    
+    renderItem(key, item) {
+        return React.createElement(MySurveyQuestionCheckboxItem, {key: key, question: this.question, item: item, css: this.css, rootCss: this.rootCss });
+    };
+} 
+ 
+Survey.ReactQuestionFactory.Instance.registerQuestion("checkbox", (props) => {
+    return React.createElement(MySurveyQuestionCheckbox, props);
+});
+
+Survey.ReactQuestionFactory.Instance.registerQuestion("radiogroup", (props) => {
+    return React.createElement(MySurveyQuestionRadiogroup, props);
+});
+
+var survey = new Survey.ReactSurveyModel({ title: "Tell us, what technologies do you use?", pages: [
   { name:"page1", questions: [ 
       { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "frameworkUsing",title: "Do you use any front-end framework like Bootstrap?" },
       { type: "checkbox", choices: ["Bootstrap","Foundation"], hasOther: true, isRequired: true, name: "framework", title: "What front-end framework do you use?", visible: false }
@@ -16,6 +69,4 @@ Template.telemedicine.events({
   { type: "visible", operator: "equal", value: "Yes", name: "mvvmUsing", questions: ["mvvm"]}
  ]
 });
-
-new Survey.SurveyTemplateText().replaceText('<div class="btn-group"><!-- ko foreach: { data: question.visibleChoices, as: "item", afterRender: question.koAfterRender}  --> <label class="btn btn-default" data-bind="css:{active: $data.value == question.koValue()}, style:{width: question.koWidth}">   <input type="radio" style="display:none;" data-bind="attr: {name: question.name, value: item.value}, checked: question.koValue" /> <span data-bind="text: item.text"></span></label><!-- /ko --><div data-bind="visible:question.hasOther"><div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible } }"></div></div></div>', "question", "radiogroup");
-new Survey.SurveyTemplateText().replaceText('<div class="btn-group"><!-- ko foreach: { data: question.visibleChoices, as: "item", afterRender: question.koAfterRender}  --> <label class="btn btn-default" data-bind="css:{active: question.koValue().indexOf($data.value) > -1}, style:{width: question.koWidth}">   <input style="display:none;" type="checkbox" data-bind="attr: {name: question.name, value: item.value}, checked: question.koValue" /> <span data-bind="text: item.text"></span></label><!-- /ko --><div data-bind="visible:question.hasOther"><div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible } }"></div></div></div>', "question", "checkbox");
+ReactDOM.render(<Survey.Survey model={survey} />, document.getElementById("surveyElement"));
