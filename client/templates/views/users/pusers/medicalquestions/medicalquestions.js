@@ -1,4 +1,4 @@
-Template.personalInformation.onRendered(function(){
+Template.medicalquestions.onRendered(function(){
 
 App.Questions = React.createClass({
     mixins: [ReactMeteorData],
