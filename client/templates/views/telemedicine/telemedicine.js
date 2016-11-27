@@ -1,3 +1,5 @@
+Template.personalInformation.onRendered(function(){
+
 App.Questions = React.createClass({
     mixins: [ReactMeteorData],
     PropTypes: {},
@@ -80,4 +82,5 @@ App.Questions = React.createClass({
             </form>
         )
     }
+});
 });
