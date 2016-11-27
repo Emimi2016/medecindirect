@@ -1,68 +1,83 @@
-Template.telemedicine.events({
+App.Questions = React.createClass({
+    mixins: [ReactMeteorData],
+    PropTypes: {},
 
-        if (!this.question)
-            return null;
-        return React.createElement("form", {className: "btn-group", ref: "toggleInput"}, this.getItems());
-    componentDidMount() {
-        this.refs.toggleInput.setAttribute('data-toggle', 'buttons');
-    };    
-    renderRadio(key, item, isChecked, divStyle, otherItem) {
-        var className = "btn btn-default";
-        if(isChecked) className += " active";
-        return (React.createElement("label", {key: key, style: divStyle, className: className}, 
-            React.createElement("input", {type: "radio", checked: isChecked, value: item.value, onChange: this.handleOnChange}), 
-            React.createElement("span", {}, item.text), 
-            otherItem));
-    };
-}
+    getMeteorData() {
+        var data = {},
+            alert = $('.form.alert.module'),
+            handle = Meteor.subscribe('questions');
 
-class telemedicineCheckboxItem extends Survey.SurveyQuestionCheckboxItem {
-    renderCheckbox(isChecked, divStyle, otherItem) {
-        var className = "btn btn-default";
-        if(isChecked) className += " active";
-        return (React.createElement("label", {className: className, style: divStyle}, 
-            React.createElement("input", {type: "checkbox", checked: isChecked, onChange: this.handleOnChange}), 
-            React.createElement("span", {}, this.item.text), 
-            otherItem));
-    };
-}
+        if (handle.ready()) {
+            data.questions = Questions.find({}, {sort: {order: 1}}).fetch();
+            alert.hide();
+        }
 
-class MySurveyQuestionCheckbox extends Survey.SurveyQuestionCheckbox {
-    render() {
-        if (!this.question)
-            return null;
-        return React.createElement("div", {className: "btn-group", ref: "toggleInput"}, this.getItems());
+        return data;
+    },
+
+    calculateChoices: function (event) {
+        event.preventDefault();
+
+        // TODO: refactor validation into form alerts module
+        var score = 0,
+            valid = false,
+            question = $('.radio.input.group'),
+            alert = $('.form.alert.module');
+
+        $(question).each(function () {
+            var checked = $(this).find('.radio.input:checked');
+            if (checked.length === 0) {
+                valid = false;
+                return valid;
+            } else {
+                valid = true;
+                score += Number(checked.val());
+            }
+            return valid;
+        });
+
+        if (valid) {
+            alert.hide();
+            Meteor.call('insertReport', score, (error) => {
+                if (error) {
+                    console.error('Insert report method failed: ' + error);
+                } else {
+                    FlowRouter.go('Diagnosis');
+                }
+            });
+        } else {
+            alert.show();
+        }
+    },
+
+    renderQuestions() {
+        return this.data.questions.map(function (question) {
+            return (
+                <section className="question" key={question._id}>
+                    <h2 className="title">{question.order}. {question.question}</h2>
+
+                    <div className="radio input group">
+                        <App.FormInput type="radio" label={question.choices[0].choice} name={question.name}
+                                       value={question.choices[0].value}/>
+                        <App.FormInput type="radio" label={question.choices[1].choice} name={question.name}
+                                       value={question.choices[1].value}/>
+                        <App.FormInput type="radio" label={question.choices[2].choice} name={question.name}
+                                       value={question.choices[2].value}/>
+                        <App.FormInput type="radio" label={question.choices[3].choice} name={question.name}
+                                       value={question.choices[3].value}/>
+                    </div>
+                </section>
+            )
+        });
+    },
+
+    render: function () {
+        return (
+            <form className="questions form module" onSubmit={this.calculateChoices}>
+                <App.FormAlerts alert="animated bounceInDown form alert module" type="negative message" message="Please answer all the questions" />
+                {(this.data.questions) ? this.renderQuestions() : <App.Loading />}
+                <button type="submit" className="fluid primary button">Feel Better</button>
+            </form>
+        )
     }
-    componentDidMount() {
-        this.refs.toggleInput.setAttribute('data-toggle', 'buttons');
-    };    
-    renderItem(key, item) {
-        return React.createElement(MySurveyQuestionCheckboxItem, {key: key, question: this.question, item: item, css: this.css, rootCss: this.rootCss });
-    };
-} 
- 
-Survey.ReactQuestionFactory.Instance.registerQuestion("checkbox", (props) => {
-    return React.createElement(MySurveyQuestionCheckbox, props);
 });
-
-Survey.ReactQuestionFactory.Instance.registerQuestion("radiogroup", (props) => {
-    return React.createElement(MySurveyQuestionRadiogroup, props);
-});
-
-var survey = new Survey.ReactSurveyModel({ title: "Tell us, what technologies do you use?", pages: [
-  { name:"page1", questions: [ 
-      { type: "radiogroup", choices: [ "Yes", "No" ], isRequired: true, name: "frameworkUsing",title: "Do you use any front-end framework like Bootstrap?" },
-      { type: "checkbox", choices: ["Bootstrap","Foundation"], hasOther: true, isRequired: true, name: "framework", title: "What front-end framework do you use?", visible: false }
-   ]},
-  { name: "page2", questions: [
-    { type: "radiogroup", choices: ["Yes","No"],isRequired: true, name: "mvvmUsing", title: "Do you use any MVVM framework?" },
-    { type: "checkbox", choices: [ "AngularJS", "KnockoutJS", "React" ], hasOther: true, isRequired: true, name: "mvvm", title: "What MVVM framework do you use?", visible: false } ] },
-  { name: "page3",questions: [
-    { type: "comment", name: "about", title: "Please tell us about your main requirements for Survey library" } ] }
- ],
- triggers: [
-  { type: "visible", operator: "equal", value: "Yes", name: "frameworkUsing", questions: ["framework"]},
-  { type: "visible", operator: "equal", value: "Yes", name: "mvvmUsing", questions: ["mvvm"]}
- ]
-});
-ReactDOM.render(<Survey.Survey model={survey} />, document.getElementById("surveyElement"));
