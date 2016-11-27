@@ -4,6 +4,8 @@ Template.paiement.onCreated(function() {
     
 });
 
+Template.paiement.onRendered(function(){
+
 $('select[name="answertype"]').change(function(event){
     var selected = $(this).find('option:selected');
     var value = selected.attr("value");
@@ -62,4 +64,5 @@ $(function () {
  
     $('#btnDel').attr('disabled', true);
  
+});
 });
