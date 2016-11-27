@@ -7,7 +7,7 @@
                     <li class=""><a data-toggle="tab" href="#tab-3">Vaccinations</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-4">Prescriptions</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-5">Health Problems</a></li>
-                    <li class=""><a data-toggle="tab" href="#tab-6">Bill</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-6">Medical Questions</a></li>
                 </ul>
         
         
@@ -62,8 +62,8 @@
     <div id="tab-6" class="tab-pane">      
         <div class="row">
             <div class="col-lg-12">
-                {{#panel title="Bills" built=true color="hblue"}}
-                {{#with medicalRecord}} {{> bill}} {{/with}} {{/panel}}
+                {{#panel title="Medical Questions" built=true color="hblue"}}
+                {{#with medicalRecord}} {{> medicalQuestions}} {{/with}} {{/panel}}
             </div>
         </div>
     </div>
