@@ -65,8 +65,6 @@ App.Questions = React.createClass({
                                        value={question.choices[1].value}/>
                         <App.FormInput type="radio" label={question.choices[2].choice} name={question.name}
                                        value={question.choices[2].value}/>
-                        <App.FormInput type="radio" label={question.choices[3].choice} name={question.name}
-                                       value={question.choices[3].value}/>
                     </div>
                 </section>
             )
