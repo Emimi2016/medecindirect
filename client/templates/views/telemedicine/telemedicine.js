@@ -1,4 +1,4 @@
-Template.pollForm.events({
+Template.telemedicine.events({
 
   'submit form': function(event) {
 
