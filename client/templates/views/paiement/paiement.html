@@ -1,95 +1,131 @@
 <template name="paiement">
-    {{> pageHeader title="payment" desc="" category="App views" }}
+    {{> pageHeader title="medical questions" desc="" category="App views" }}
 
-    {{#staggering}}
-    <div class="content">
-        <div class="row">
-            <div class="col-lg-12">
-                {{#panel title=" paypal payment" built=true color="hblue"}}
-                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" class="paypal-button" method="post" style="opacity:" target="_top">
-                <div class="hide" id="errorBox"></div>
-                <input name="button" type="hidden" value="buynow"> 
-  	            <input name="business" type="hidden" value="stuffgetter@domain.com"> 
-  	            <input name="item_name" type="hidden" value="stuff">
-                <input name="quantity" type="hidden" value="1"> 
-                <input name="amount" type="hidden" value="2.00"> 
-                <input name="currency_code" type="hidden" value="USD"> 
-                <input name="shipping" type="hidden" value="0.00"> 
-                <input name="tax" type="hidden" value="0.00">
-                <input name="notify_url" type="hidden" value="http://localhost:3000/paypalCallback">
-                <input type="hidden" name="return" value="http://localhost:3000/paypal-trans-complete">
-                <input name="env" type="hidden" value="www.sandbox"> 
-                <input name="cmd" type="hidden" value="_xclick"> 
-                <input name="bn" type="hidden" value="JavaScriptButton_buynow"> 
-                <button style='border-color:transparent;background-color:transparent;'>
-    	        <img type="submit" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png" alt="Buy now with PayPal" />
-                </button>
-                </form>
-                {{/panel}}
+   
+<!-- Form Name -->
+<legend>Ceate A Poll</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="question">Question:</label>
+  <div class="controls">
+    <input id="question" name="question" type="text" placeholder="eg. What day is it?" class="input">
+
+
+<!-- Answer Types-->
+<label>Answer Type:</label>
+<select name="answertype">
+    <option value="">Select:</option>
+    <option value="list">List</option>
+    <option value="number">Nubmer</option>
+    <option value="date">Date</option>
+    <option value="text">Text</option>    
+</select>
+  </div>
+</div>
+
+    
+    
+    
+    
+    
+<!-- List Answer-->    
+<div id="listanswer" for-field="answertype" for-value="list" class="accordion-body collapse">
+ <!-- Text input-->
+
+    
+    
+    <div action="#" method="post" id="sign-up_area">
+            <div id="entry1" class="clonedInput">
+                <h4 id="reference" name="reference" class="heading-reference">Option 1</h4>
+ 
+                <fieldset>
+                    <label class="label_answeroption" for="first_name">Answer Option: </label>
+                    <input class="input_answeroption" type="text" name="answer_option" id="first_name" value="">
+                </fieldset>
+              
+            </div><!-- end #entry1 -->
+  				
+  			<hr>
+ 
+            <div id="addDelButtons">
+                <input type="button" id="btnAdd" value="add section"> <input type="button" id="btnDel" value="remove section above">
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                {{#panel title="paypal credit card form" built=true color="hblue"}}
-                    <form class='form' id='paypal payment form' action='#'>
-		<div class='form-group'>
-		  <label for='name'>Name</label>
-		  <input type='text' class='form-control' name='name' id='name' placeholder='Name on card'/>
-		</div>
-		<div class='form-group'>
-		  <label for='card_type'>Card Type</label>
-		  <select name='card_type' id='card-type'>
-		  	<option selected="selected" disabled>Card Type</option>
-		    <option value='visa'> Visa </option>
-		    <option value='mastercard'> Mastercard </option>
-		    <option value='americanexpress'> American Express </option>
-		    <option value='discover'> Discover </option>
-		  </select>
-		</div>
-		<div class='form-group'>
-		  <label for='credit_card'>Card Number</label>
-		  <input type='text' class='form-control' name='card_number' id='card-number' placeholder='XXXX XXXX XXXX XXXX'/>
-		</div>
-		<div class='form-group'>
-		  <label for='expire_month'>Expiration Month</label>
-		  <select name='expire_month' id='expire-month'>
-		  	<option selected="selected" disabled>Expiration Month</option>
-		    <option value='01'> 1 - Jan </option>
-		    <option value='02'> 2 - Feb </option>
-		    <option value='03'> 3 - Mar </option>
-		    <option value='04'> 4 - Apr </option>
-		    <option value='05'> 5 - May </option>
-		    <option value='06'> 6 - Jun </option>
-		    <option value='07'> 7 - Jul </option>
-		    <option value='08'> 8 - Aug </option>
-		    <option value='09'> 9 - Sep </option>
-		    <option value='10'> 10 - Oct </option>
-		    <option value='11'> 11 - Nov </option>
-		    <option value='12'> 12 - Dec </option>
-		  </select>
-		</div>
-		<div class='form-group'>
-		  <label for='expire_year'>Expiration Year</label>
-		  <select name='expire_year' id='expire-year'>
-		  	<option selected="selected" disabled>Expiration Year</option>
-		    <option value='2016'>2013</option>
-		    <option value='2017'>2014</option>
-		    <option value='2018'>2015</option>
-		    <option value='2019'>2016</option>
-		    <option value='2020'>2017</option>
-		    <option value='2021'>2018</option>
-		    <option value='2022'>2019</option>
-		  </select>
-		</div>
-		<div class='form-group'>
-		  <label for='cvv2'>CVV</label>
-		  <input type='text' class='form-control' name='cvv' id='cvv' placeholder='123'/>
-		</div>
-		<button type="submit" class='btn btn-default'>Submit</button>
-	  	</form>
-                {{/panel}}
-            </div>
-        </div>
-    </div>
-    {{/staggering}}
+ 
+</div>
+    
+    
+    
+    
+    
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+ <!-- Number Answer-->  
+<div id="numberanswer" for-field="answertype" for-value="number" class="accordion-body collapse">                <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="textinput">Number:</label>
+      <div class="controls">
+        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="input">
+      </div>
+    </div>    
+</div>
+    
+<!-- Date Answer-->  
+<div id="dateanswer" for-field="answertype" for-value="date" class="accordion-body collapse">                    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="textinput">Date:</label>
+      <div class="controls">
+        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="input">
+      </div>
+    </div>    
+</div>
+
+<!-- Text Answer-->      
+<div id="textanswer" for-field="answertype" for-value="text" class="accordion-body collapse">                    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="textinput">Text:</label>
+      <div class="controls">
+        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="input">
+      </div>
+    </div>    
+</div>
+    
+ 
+
+
+<!-- Multiple Checkboxes -->
+<div class="control-group">
+  <label class="control-label" for="Poll Type">Poll Type:</label>
+  <div class="controls">
+    <label class="checkbox" for="Poll Type-0">
+      <input type="checkbox" name="Poll Type" id="Poll Type-0" value="Open">
+      Open
+    </label>
+    <label class="checkbox" for="Poll Type-1">
+      <input type="checkbox" name="Poll Type" id="Poll Type-1" value="Close">
+      Close
+    </label>
+    <label class="checkbox" for="Poll Type-2">
+      <input type="checkbox" name="Poll Type" id="Poll Type-2" value="Free">
+      Free
+    </label>
+    <label class="checkbox" for="Poll Type-3">
+      <input type="checkbox" name="Poll Type" id="Poll Type-3" value="Premium">
+      Premium
+    </label>
+  </div>
+</div>
 </template>
