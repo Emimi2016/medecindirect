@@ -4,102 +4,62 @@ Template.paiement.onCreated(function() {
     
 });
 
-Meteor.Paypal = {
+$('select[name="answertype"]').change(function(event){
+    var selected = $(this).find('option:selected');
+    var value = selected.attr("value");
+    var name=  $(this).attr("name");
+    var selector = '[for-field="'+name+'"]';
+    $('.accordion-body'+selector).addClass('collapse');
+    var selectorForValue = selector+'[for-value="'+value+'"]';
+    var selectedPanel = $('.accordion-body'+ selectorForValue  );
+    selectedPanel.removeClass('collapse');
+})
 
-  account_options: {},
-  //authorize submits a payment authorization to Paypal
-  authorize: function(card_info, payment_info, callback){
-    Meteor.call('paypal_submit', 'authorize', card_info, payment_info, callback);
-  },
-  purchase: function(card_info, payment_info, callback){
-    Meteor.call('paypal_submit', 'sale', card_info, payment_info, callback);
-  },
-  //config is for the paypal configuration settings.
-  config: function(options){
-    this.account_options = options;
-  },
-  payment_json: function(){
-    return {
-      "intent": "sale",
-      "payer": {
-        "payment_method": "credit_card",
-        "funding_instruments": []},
-      "transactions": []
-    };
-  },
-  //parseCardData splits up the card data and puts it into a paypal friendly format.
-  parseCardData: function(data){
-    var first_name = '', last_name = '';
-    if (data.name){
-      first_name = data.name.split(' ')[0];
-      last_name = data.name.split(' ')[1]
-    }
-    return {
-      credit_card: {
-        type: data.type,
-        number: data.number,
-        first_name: first_name,
-        last_name: last_name,
-        cvv2: data.cvv2,
-        expire_month: data.expire_month,
-        expire_year: data.expire_year
-      }};
-  },
-  //parsePaymentData splits up the card data and gets it into a paypal friendly format.
-  parsePaymentData: function(data){
-    return {amount: {total: data.total, currency: data.currency}};
-  }
-};
-
-if(Meteor.isServer){
-  Meteor.startup(function(){
-    var paypal_sdk = Npm.require('paypal-rest-sdk');
-    var Fiber = Npm.require('fibers');
-    var Future = Npm.require('fibers/future');
-    Meteor.methods({
-      paypal_submit: function(transaction_type, cardData, paymentData){
-        paypal_sdk.configure(Meteor.Paypal.account_options);
-        var payment_json = Meteor.Paypal.payment_json();
-        payment_json.intent = transaction_type;
-        if(cardData == null) {
-          payment_json.payer = {
-            payment_method: 'paypal'
-          };
-          payment_json.redirect_urls = Meteor.Paypal.account_options.redirect_urls;
-        } else {
-          payment_json.payer.funding_instruments.push(Meteor.Paypal.parseCardData(cardData));
-        }
-        payment_json.transactions.push(Meteor.Paypal.parsePaymentData(paymentData));
-        var fut = new Future();
-        this.unblock();
-        paypal_sdk.payment.create(payment_json, Meteor.bindEnvironment(function(err, payment){
-          if (err){
-            fut.return({saved: false, error: err});
-          } else {
-            fut.return({saved: true, payment: payment});
-          }
-        },
-        function(e){
-          console.error(e);
-        }));
-        return fut.wait();
-    }});
-    // this is not a method because it should really only be
-    // called by server-side code
-    Meteor.Paypal.execute = function execute(payment_id, payer_id, callback) {
-      paypal_sdk.payment.execute(payment_id, {payer_id: payer_id}, Meteor.Paypal.account_options, callback);
-    };
-  });
-}
-
-Template.paiement.cardData = function(){
-	return {
-      type: $('#card-type').val(),
-	    name: $('#name').val(),
-	    number: $('#card-number').val(),
-	    expire_month: $('#expire-month').val(),
-	    expire_year: $('#expire-year').val(),
-	    cvv: $('#cvv').val()
-	};
-};
-
+$(function () {
+    $('#btnAdd').click(function () {
+        var num     = $('.clonedInput').length, // how many "duplicatable" input fields we currently have
+            newNum  = new Number(num + 1),      // the numeric ID of the new input field being added
+            newElem = $('#entry' + num).clone().attr('id', 'entry' + newNum).fadeIn('slow'); // create the new element via clone(), and manipulate it's ID using newNum value
+    // manipulate the name/id values of the input inside the new element
+        // H2 - section
+        newElem.find('.heading-reference').attr('id', 'ID' + newNum + '_reference').attr('name', 'answerTitle' + newNum + '_reference').html('Option ' + newNum);
+ 
+        // First name - text
+        newElem.find('.label_answeroption').attr('for', 'ID' + newNum + '_option');
+        newElem.find('.input_answeroption').attr('id', 'ID' + newNum + '_option').attr('name', 'answer' + newNum + '_option').val('');
+ 
+    // insert the new element after the last "duplicatable" input field
+        $('#entry' + num).after(newElem);
+        $('#ID' + newNum + '_title').focus();
+ 
+    // enable the "remove" button
+        $('#btnDel').attr('disabled', false);
+ 
+    // right now you can only add 5 sections. change '5' below to the max number of times the form can be duplicated
+        if (newNum == 10)
+        $('#btnAdd').attr('disabled', true).prop('value', "You've reached the limit");
+    });
+ 
+    $('#btnDel').click(function () {
+    // confirmation
+        if (confirm("Are you sure you wish to remove this section? This cannot be undone."))
+            {
+                var num = $('.clonedInput').length;
+                // how many "duplicatable" input fields we currently have
+                $('#entry' + num).slideUp('slow', function () {$(this).remove(); 
+                // if only one element remains, disable the "remove" button
+                    if (num -1 === 1)
+                $('#btnDel').attr('disabled', true);
+                // enable the "add" button
+                $('#btnAdd').attr('disabled', false).prop('value', "add section");});
+            }
+        return false;
+             // remove the last element
+ 
+    // enable the "add" button
+        $('#btnAdd').attr('disabled', false);
+    });
+ 
+    $('#btnDel').attr('disabled', true);
+ 
+});
