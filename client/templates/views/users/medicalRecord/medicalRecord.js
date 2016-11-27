@@ -123,12 +123,74 @@ Template.medicalRecord.onRendered(function() {
             responsive: true
         };
 
-        var ctx = document.getElementById("vitalOptions").getContext("2d");
+var ctx = document.getElementById("vitalOptions").getContext("2d");
         var billsChart = new Chart(ctx).Line(vitalData, vitalOptions);
     }, 300); 
 });
+
 Template.medicalRecord.helpers({
     'medicalRecord': function() {
         return MedicalRecords.findOne({});
     }
 });
+
+
+Template.medicalRecord.onRendered(function() {
+     Meteor.setTimeout(function() { 
+        if (MedicalRecords.findOne().bill.length < 12) {
+            var chartData = MedicalRecords.findOne().bill;
+        } else {
+            var chartData = MedicalRecords.findOne().bill.slice(-12);
+        }
+        var labels = [],
+            amountData = [];
+        for (var i = 0; i < chartData.length; i++) {
+            var bill = chartData[i];
+            console.log(bill);
+            labels.push(moment(bill.date).format('MMM Do'));
+            billData.push(bill.amount);
+            console.log(labels);
+        }
+        var billData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "amount",
+                    fillColor: "rgba(136, 108, 21, 0.3)",
+                    strokeColor: "rgba(136, 108, 21, 1)",
+                    pointColor: "rgba(136, 108, 21, 1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(136, 108, 21, 1)",
+                    data: amountData
+                }
+            ]
+        };
+        var billOptions = {
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            bezierCurve: true,
+            bezierCurveTension: 0.4,
+            pointDot: true,
+            pointDotRadius: 4,
+            pointDotStrokeWidth: 1,
+            pointHitDetectionRadius: 20,
+            datasetStroke: true,
+            datasetStrokeWidth: 1,
+            datasetFill: true,
+     
+            responsive: true
+        };
+
+var ctx = document.getElementById("billOptions").getContext("2d");
+        var billChart = new Chart(ctx).Line(billData, billOptions);
+    }, 300); 
+});
+
+Template.medicalRecord.helpers({
+    'medicalRecord': function() {
+        return MedicalRecords.findOne({});
+    }
+});
+
