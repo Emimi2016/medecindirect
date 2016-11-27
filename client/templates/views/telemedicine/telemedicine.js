@@ -1,12 +1,8 @@
 Template.telemedicine.events({
 
- 
-class telemedicineRadiogroup extends Survey.telemedicineRadiogroup {
-    render() {
         if (!this.question)
             return null;
         return React.createElement("form", {className: "btn-group", ref: "toggleInput"}, this.getItems());
-    };
     componentDidMount() {
         this.refs.toggleInput.setAttribute('data-toggle', 'buttons');
     };    
@@ -20,7 +16,7 @@ class telemedicineRadiogroup extends Survey.telemedicineRadiogroup {
     };
 }
 
-class MySurveyQuestionCheckboxItem extends Survey.SurveyQuestionCheckboxItem {
+class telemedicineCheckboxItem extends Survey.SurveyQuestionCheckboxItem {
     renderCheckbox(isChecked, divStyle, otherItem) {
         var className = "btn btn-default";
         if(isChecked) className += " active";
