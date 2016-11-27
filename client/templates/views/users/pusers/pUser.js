@@ -30,6 +30,20 @@ Template.pUser.onRendered(function(){
     });
 });
 
+   $('#medicalquestions').validate({
+        rules: {
+
+        },
+        messages: {
+
+        },
+        submitHandler: function(form) {
+            event.preventDefault();
+            submitMedicalquestionsForm(form);
+        }
+    });
+});
+
 Template.pUser.helpers({
 
 });
