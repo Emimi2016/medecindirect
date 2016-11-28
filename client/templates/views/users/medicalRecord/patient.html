@@ -1,4 +1,6 @@
-<template name="patient">
+<template name="medicalRecord">
+    {{> pageHeader title="Medical record" desc="" category="App views" }}
+    
     {{#with currPatient}} {{> pageHeader title=currPatientFullname category="App views" }} {{/with}} {{#staggering}}
     <div class="content">
         <div class="row">
