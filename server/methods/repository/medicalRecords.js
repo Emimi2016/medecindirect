@@ -21,7 +21,7 @@ Meteor.methods({
         }
         if (Meteor.users.findOne({
                 _id: this.userId
-            }).persodata.identity != 2) {
+            }).persodata.identity != 1) {
             throw new Meteor.Error('not-allowed', 'Only doctors can do this action!');
         }
         check(billData, Object);
@@ -110,7 +110,7 @@ Meteor.methods({
         if (!this.userId) {
             throw new Meteor.Error('not-authorized', 'You must be loged in!');
         }
-        if (Meteor.users.findOne(this.userId).persodata.identity != 2) {
+        if (Meteor.users.findOne(this.userId).persodata.identity != 1) {
             throw new Meteor.Error('not-allowed', 'Only doctors can do this action!');
         }
         check(vitalSign, Object);
@@ -189,7 +189,7 @@ Meteor.methods({
         }
         if (Meteor.users.findOne({
                 _id: this.userId
-            }).persodata.identity != 2) {
+            }).persodata.identity != 1) {
             throw new Meteor.Error('not-allowed', 'Only patient can do this action!')
         }
         check(vaccinationData, Object);
@@ -227,7 +227,7 @@ Meteor.methods({
         }
         if (Meteor.users.findOne({
                 _id: this.userId
-            }).persodata.identity != 2) {
+            }).persodata.identity != 1) {
             throw new Meteor.Error('not-allowed', 'Only patient can do this action!')
         }
         check(prescriptionData, Object);
@@ -319,7 +319,7 @@ Meteor.methods({
         }
         if (Meteor.users.findOne({
                 _id: this.userId
-            }).persodata.identity != 2) {
+            }).persodata.identity != 1) {
             throw new Meteor.Error('not-allowed', 'Only patient can do this action!')
         }
         check(hpData, Object);
