@@ -3,7 +3,63 @@ Template.medicalRecord.onCreated(function() {
     self.subscribe('medicalRecords');
     
 });
-
+Template.medicalRecord.events({
+    'click #newVitalRecord': function(event, template) {
+        Modal.show('vitalSignsModal');
+        setTimeout(function() {            
+         $('#vitalRecordID').val('null');
+        }, 300);
+    },
+    'click .edit-vital-record': function(event, template) {
+        var vitalRecordID = $(event.currentTarget).data('id');
+        Modal.show('vitalSignsModal');
+        setTimeout(function() {
+         $('#vitalRecordID').val(vitalRecordID);
+        }, 300);
+    },
+    'click #newAllergy': function(event, template) {
+        Modal.show('allergyModal');
+        setTimeout(function() {
+         $('#allergyID').val('null');
+        }, 300);
+    },
+    'click .edit-allergy': function(event, template) {
+        var allergyID = $(event.currentTarget).data('id');
+        Modal.show('allergyModal');
+        setTimeout(function() {
+         $('#allergyID').val(allergyID);
+        }, 300);
+    },
+    'click #newVaccination': function(event, template) {
+        Modal.show('vaccinationModal');
+        setTimeout(function() {
+         $('#vaccinationID').val('null');
+        }, 300);
+    },
+    'click .edit-vaccination': function(event, template) {
+        var vaccinationID = $(event.currentTarget).data('id');
+        Modal.show('vaccinationModal');
+        setTimeout(function() {
+         $('#vaccinationID').val(vaccinationID);
+        }, 300);
+    },
+    'click #newPrescription': function(event, template) {
+        Modal.show('prescriptionModal');
+    },
+    'click #newHealthProblem': function(event, template) {
+        Modal.show('healthProblemModal');
+        setTimeout(function() {
+         $('#healthProblemID').val('null');
+        }, 300);
+    },
+    'click .edit-health-problem': function(event, template) {
+        var HealthProblemID = $(event.currentTarget).data('id');
+        Modal.show('healthProblemModal');
+        setTimeout(function() {
+         $('#healthProblemID').val(healthProblemID);
+        }, 300);
+    }
+});
 Template.medicalRecord.onRendered(function() {
      Meteor.setTimeout(function() { 
         if (MedicalRecords.findOne().vitals.length < 12) {
