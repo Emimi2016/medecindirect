@@ -37,7 +37,9 @@
 
                     {{#panel title="Track your Vitals"}}
                         {{> highchartsHelper chartData="medicalRecordChart" chartWidth="100%" charHeight="100%" chartObject=chartObj}}
-                    {{/panel}}
+                            
+                {{#with medicalRecord}} {{> vitalSigns}} {{/with}} {{/panel}}
+                 
                 </div>
                 <div class="col-md-4">
                     <div class="right_panel">
