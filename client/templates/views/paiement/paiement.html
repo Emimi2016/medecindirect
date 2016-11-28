@@ -6,6 +6,19 @@
 <legend>Patient history</legend>
 
 <!-- Text input-->
+     <div class="form-group">
+            <label class="col-sm-2 control-label">Gender</label>
+            <div class="col-sm-2">
+                <div class="radio radio-male">
+                    <input type="radio" name="gender" id="male" value="M" {{checkGender 'M'}}>
+                    <label>Male</label>
+                </div>
+                <div class="radio radio-female">
+                    <input type="radio" name="gender" id="female" value="F" {{checkGender 'F'}}>
+                    <label>Female</label>
+                </div>
+            </div>
+         
     <div class="form-group">
 <div class="control-group">
   <label class="control-label" for="question">Question 1:</label>
