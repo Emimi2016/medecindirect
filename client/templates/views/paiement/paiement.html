@@ -3,78 +3,17 @@
 
    
 <!-- Form Name -->
-<legend>Ceate A Poll</legend>
+<legend>Patient history</legend>
 
 <!-- Text input-->
+    <div class="form-group">
 <div class="control-group">
   <label class="control-label" for="question">Question:</label>
   <div class="controls">
-    <input id="question" name="question" type="text" placeholder="eg. What day is it?" class="input">
-
-
-<!-- Answer Types-->
-<label>Answer Type:</label>
-<select name="answertype">
-    <option value="">Select:</option>
-    <option value="list">List</option>
-    <option value="number">Nubmer</option>
-    <option value="date">Date</option>
-    <option value="text">Text</option>    
-</select>
-  </div>
-</div>
+    <input id="question" name="question" type="text" placeholder="your age" class="input">
 
     
-    
-    
-    
-    
-<!-- List Answer-->    
-<div id="listanswer" for-field="answertype" for-value="list" class="accordion-body collapse">
- <!-- Text input-->
-
-    
-    
-    <div action="#" method="post" id="sign-up_area">
-            <div id="entry1" class="clonedInput">
-                <h4 id="reference" name="reference" class="heading-reference">Option 1</h4>
- 
-                <fieldset>
-                    <label class="label_answeroption" for="first_name">Answer Option: </label>
-                    <input class="input_answeroption" type="text" name="answer_option" id="first_name" value="">
-                </fieldset>
-              
-            </div><!-- end #entry1 -->
-  				
-  			<hr>
- 
-            <div id="addDelButtons">
-                <input type="button" id="btnAdd" value="add section"> <input type="button" id="btnDel" value="remove section above">
-            </div>
- 
-</div>
-    
-    
-    
-    
-    
-    
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-    
- <!-- Number Answer-->  
-<div id="numberanswer" for-field="answertype" for-value="number" class="accordion-body collapse">                <!-- Text input-->
+    <div id="numberanswer" for-field="answertype" for-value="number" class="accordion-body collapse">                <!-- Text input-->
     <div class="control-group">
       <label class="control-label" for="textinput">Number:</label>
       <div class="controls">
@@ -82,19 +21,22 @@
       </div>
     </div>    
 </div>
-    
-<!-- Date Answer-->  
-<div id="dateanswer" for-field="answertype" for-value="date" class="accordion-body collapse">                    <!-- Text input-->
-    <div class="control-group">
-      <label class="control-label" for="textinput">Date:</label>
-      <div class="controls">
-        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="input">
-      </div>
+       </div>
     </div>    
 </div>
+    
+<div class="form-group">
+    <div class="control-group">
+  <label class="control-label" for="question">Question:</label>
+  <div class="controls">
+    <input id="question" name="question" type="text" placeholder="Do you smoke?" class="input">
+    
+    <label>Answer Type:</label>
+<select name="answertype">
+    <option value="text">Text</option>   
+</select>
 
-<!-- Text Answer-->      
-<div id="textanswer" for-field="answertype" for-value="text" class="accordion-body collapse">                    <!-- Text input-->
+    <div id="textanswer" for-field="answertype" for-value="text" class="accordion-body collapse">                    <!-- Text input-->
     <div class="control-group">
       <label class="control-label" for="textinput">Text:</label>
       <div class="controls">
@@ -102,30 +44,27 @@
       </div>
     </div>    
 </div>
-    
- 
-
-
-<!-- Multiple Checkboxes -->
-<div class="control-group">
-  <label class="control-label" for="Poll Type">Poll Type:</label>
-  <div class="controls">
-    <label class="checkbox" for="Poll Type-0">
-      <input type="checkbox" name="Poll Type" id="Poll Type-0" value="Open">
-      Open
-    </label>
-    <label class="checkbox" for="Poll Type-1">
-      <input type="checkbox" name="Poll Type" id="Poll Type-1" value="Close">
-      Close
-    </label>
-    <label class="checkbox" for="Poll Type-2">
-      <input type="checkbox" name="Poll Type" id="Poll Type-2" value="Free">
-      Free
-    </label>
-    <label class="checkbox" for="Poll Type-3">
-      <input type="checkbox" name="Poll Type" id="Poll Type-3" value="Premium">
-      Premium
-    </label>
-  </div>
+     </div>
+    </div>    
 </div>
+    
+    <div class="form-group">
+    <div class="control-group">
+  <label class="control-1label" for="question">Question:</label>
+  <div class="controls">
+    <input id="question" name="question" type="text" placeholder="if yes how many cigarettes per days?" class="input">
+    
+  <div id="numberanswer" for-field="answertype" for-value="number" class="accordion-body collapse">                <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="textinput">Number:</label>
+      <div class="controls">
+        <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="input">
+      </div>
+    </div>    
+</div>
+       </div>    
+</div>
+        </div>
+    
+
 </template>
