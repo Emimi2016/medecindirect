@@ -15,6 +15,11 @@
         <div class="row">
             <div class="col-lg-12">
                 {{#panel title="Vital signs" built=true color="hblue"}}
+                   {{#if patient}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newVitalRecord" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                 {{/if}}
                 {{#with medicalRecord}} {{> vitalSigns}} {{/with}} {{/panel}}
             </div>
         </div>
@@ -24,6 +29,11 @@
         <div class="row">
             <div class="col-lg-12">
                 {{#panel title="Allergies" built=true color="hblue"}}
+                   {{#if patient}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newAllergy" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                 {{/if}}
                 {{#with medicalRecord}} {{> allergies}} {{/with}} {{/panel}}
             </div>
         </div>
@@ -33,6 +43,11 @@
         <div class="row">
             <div class="col-lg-12">
                 {{#panel title="Vaccinations" built=true color="hblue"}}
+                   {{#if patient}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newVaccination" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                 {{/if}}
                 {{#with medicalRecord}} {{> vaccinations}} {{/with}} {{/panel}}
             </div>
         </div>
@@ -42,6 +57,11 @@
         <div class="row">
             <div class="col-lg-12">
                 {{#panel title="Prescriptions" built=true color="hblue"}}
+                   {{#if patient}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newPrescription" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                 {{/if}}
                 {{#with medicalRecord}} {{> prescriptions}} {{/with}} {{/panel}}
             </div>
         </div>
@@ -52,11 +72,15 @@
         <div class="row">
             <div class="col-lg-12">
                 {{#panel title="Health problems" built=true color="hblue"}}
+                   {{#if patient}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newHealthProblem" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                   {{/if}}
                 {{#with medicalRecord}} {{> healthProblems}} {{/with}} {{/panel}}
             </div>
         </div>
     </div>
-    
-</div>    
+ </div>
  
 </template>
