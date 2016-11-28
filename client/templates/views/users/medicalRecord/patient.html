@@ -1,0 +1,60 @@
+<template name="patient">
+    {{#with currPatient}} {{> pageHeader title=currPatientFullname category="App views" }} {{/with}} {{#staggering}}
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel title="Vital signs" built=true color="hblue"}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newVitalRecord" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                {{#with medicalRecord}} {{> vitalSigns}} {{/with}} {{/panel}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel title="Allergies" built=true color="hblue"}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newAllergy" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                {{#with medicalRecord}} {{> allergies}} {{/with}} {{/panel}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel title="Vaccinations" built=true color="hblue"}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newVaccination" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                {{#with medicalRecord}} {{> vaccinations}} {{/with}} {{/panel}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel title="Prescriptions" built=true color="hblue"}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newPrescription" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                {{#with medicalRecord}} {{> prescriptions}} {{/with}} {{/panel}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel title="Health problems" built=true color="hblue"}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newHealthProblem" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                {{#with medicalRecord}} {{> healthProblems}} {{/with}} {{/panel}}
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-lg-12">
+                {{#panel title="Bills" built=true color="hblue"}}
+                <button style="margin-bottom: 10px" class="btn btn-primary" id="newbill" type="button">
+                    <i class="fa fa-plus"></i> Add
+                </button>
+                {{#with medicalRecord}} {{> bills}} {{/with}} {{/panel}}
+            </div>
+        </div>
+    </div>
+    {{/staggering}}
+</template>
