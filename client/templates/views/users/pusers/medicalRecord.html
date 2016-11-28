@@ -1,5 +1,5 @@
-<template name="medicalRecord">
-    {{> pageHeader title="Medical record" desc="" category="App views" }}
+<template name="patient">
+    {{#with currPatient}} {{> pageHeader title=currPatientFullname category="App views" }} {{/with}}
 
 <input type="text" hidden="hidden" id="username"/>
 <div class="row">
