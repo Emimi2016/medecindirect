@@ -5,6 +5,14 @@ Template.paiement.onCreated(function() {
 });
 
 Template.paiement.onRendered(function(){
+    
+    checkGender: function(value) {
+        var sex = Meteor.user().persodata.gender;
+        if (sex == value) {
+            return 'checked';
+        }
+        return;
+    },
 
 $('select[name="answertype"]').change(function(event){
     var selected = $(this).find('option:selected');
