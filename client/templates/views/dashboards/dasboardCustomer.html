@@ -1,65 +1,49 @@
-<template name="dashboardPatient">
+<template name="dashboardCustomer">
 
             <div class="row">
 
                 <div class="col-sm-12 col-md-8">
-                    {{#panel title="My doctor"}}
+                    {{#panel title="My Supplier"}}
                         <div id="results" class="row table-responsive">
-                            <table id="doctorsTable" class="table table-striped table-bordered table-hover">
+                            <table id="suppliersTable" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>First name</th>
-                                    <th>Last Name</th>
-                                    <th>Gender</th>
-                                    <th>Speciality</th>
+                                    <th>Name</th>
                                     <th>City</th>
-                                    <th>Country</th>
-                                    <th>Language</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {{#with doctor}}
+                                    {{#with supplier}}
                                         <tr>
                                             <td>{{persodata.fname}}</td>
-                                            <td>{{persodata.lname}}</td>
-                                            <td>{{persodata.gender}}</td>
-                                            <td>{{persodata.speciality}}</td>
                                             <td>{{persodata.city}}</td>
-                                            <td>{{persodata.address}}</td>
-                                            <td>{{persodata.language}}</td>
                                         </tr>
                                     {{/with}}
                                 </tbody>
                             </table>
                         </div>
                     {{/panel}}
-
-
-                    {{#panel title="Track your Vitals Signs"}}
-                        {{> highchartsHelper chartData="medicalRecordChart" chartWidth="100%" charHeight="100%" chartObject=chartObj}}
-                            
-                {{#with medicalRecord}} {{> vitalSigns}} {{/with}} {{/panel}}
                  
                 </div>
                 <div class="col-md-4">
                     <div class="right_panel">
-                        {{#panel title="Next Appointment"}}
+                        {{#panel title="Next Order"}}
                         <a href="{{pathFor route='calendar'}}">
                             <div class="appointment">
                             {{#with nextAppointment}}
                                 <div class="pull-left">
-                                    <span class="app-title">{{healthIssues}}</span>
+                                    <span class="app-title">{{order}}</span>
                                     <span class="venue">{{status}}</span>
-                                    <span class="timing">{{formatedAppointmentTime}}</span>
+                                    <span class="timing">{{formatedDeliveyTime}}</span>
                                 </div>
                                 <div class="pull-right">
-                                    <span class="date">{{formatedAppointmentDay}}</span>
-                                    <span class="day">{{formatedAppointmentDayName}}</span>
+                                    <span class="date">{{formatedDeliveryDay}}</span>
+                                    <span class="day">{{formatedDeliveryDayName}}</span>
                                 </div>
                                 <div class="clearfix"></div>
                                 <i class="fa fa-table o-35"></i>
                             {{else}}
-                                <p>You don't have any scheduled appointments</p>
+                                <p>You don't have any Order</p>
                             {{/with}}
                             </div>
                         </a>
